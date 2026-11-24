@@ -12,14 +12,17 @@
   const AT = Math.max(1, Math.min(5, Math.round(+q.get('at') || (DONE ? 5 : 1))));
   const mobile = matchMedia('(max-width: 899px)');
 
-  // Adds the address to the invite list (Supabase function public.request_invite; source in the app repo,
-  // supabase/migrations/20261124000000_invite_requests.sql). The key is the publishable one, public by design.
-  // ?mock=1 skips the network call (for testing the page without adding to the list).
-  const API = 'https://lorbhcccaputunphfica.supabase.co/rest/v1/rpc/request_invite', KEY = 'sb_publishable_6Nft7j70DYtnXw9FAa0stw_znBOpCLs';
+  // Requests an invite. The request-invite function stores the address and asks Apple to send the TestFlight
+  // invite; if it can't be reached, the address is still stored through request_invite so nobody is lost.
+  // Source: the app repo, supabase/functions/request-invite and supabase/migrations/*invite*.sql.
+  // The key is the publishable one, public by design. ?mock=1 skips the network (page testing).
+  const SB = 'https://lorbhcccaputunphfica.supabase.co', KEY = 'sb_publishable_6Nft7j70DYtnXw9FAa0stw_znBOpCLs';
+  const post = (url, headers, body) => fetch(url, { method: 'POST', headers: Object.assign({ 'Content-Type': 'application/json' }, headers), body: JSON.stringify(body) })
+    .then((r) => { if (!r.ok) throw new Error('invite ' + r.status); });
   window.HUNCH_INVITE = function (email) {
     if (q.has('mock')) return new Promise((res) => setTimeout(res, 600));
-    return fetch(API, { method: 'POST', headers: { apikey: KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_email: email, p_source: 'home' }) })
-      .then((r) => { if (!r.ok) throw new Error('invite ' + r.status); });
+    return post(SB + '/functions/v1/request-invite', {}, { email, source: 'home' })
+      .catch(() => post(SB + '/rest/v1/rpc/request_invite', { apikey: KEY }, { p_email: email, p_source: 'home' }));
   };
 
   const $ = (id) => document.getElementById(id);
