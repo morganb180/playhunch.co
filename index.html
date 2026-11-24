@@ -1,125 +1,65 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Hunch: one mystery a day</title>
-<meta name="description" content="Hunch is a ten-minute mystery for iPhone. Question the suspects, follow your leads, name the killer. The ending is up to you.">
-<meta property="og:title" content="Hunch: one mystery a day">
-<meta property="og:description" content="A ten-minute mystery for iPhone. The ending is up to you.">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
+<title>Hunch: a new mystery every morning</title>
+<meta name="description" content="Hunch is a ten-minute mystery for iPhone. Question the suspects, follow the leads you trust, and name who did it.">
+<meta name="theme-color" content="#14110d">
+<meta property="og:title" content="Hunch: a new mystery every morning">
+<meta property="og:description" content="A ten-minute mystery for iPhone. In testing now: request an invite.">
 <meta property="og:image" content="https://playhunch.co/art/sleeper.jpg">
 <meta property="og:url" content="https://playhunch.co/">
-<meta name="theme-color" content="#efe6d6">
 <link rel="icon" href="/icon-180.png">
 <link rel="apple-touch-icon" href="/icon-180.png">
-<link rel="stylesheet" href="/site.css">
+<link rel="preload" href="/art/onboard/fn_match.jpg" as="image">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/home.css">
 </head>
 <body>
-
-<header class="top">
-  <a class="name" href="/" aria-label="Hunch home">Hunch<span>.</span></a>
-  <nav><a href="#cases">Cases</a><a href="/privacy/">Privacy</a></nav>
-</header>
-
-<main>
-  <section class="hero">
-    <div class="say">
-      <h1 class="mark">Hunch<span>.</span></h1>
-      <p class="line">One mystery a day. Ten minutes. The ending is up to you.</p>
-      <p class="status">Hunch is in testing on iPhone, with three cases to solve. A new case every day starts at launch.</p>
-      <a class="btn" href="mailto:hello@playhunch.co?subject=Hunch%20test%20invite">Ask for a test invite</a>
+<main class="pg">
+  <section class="col" aria-labelledby="hl">
+    <p class="mark" aria-label="Hunch">Hunch<span aria-hidden="true">.</span></p>
+    <h1 id="hl">A new mystery every morning.</h1>
+    <p class="lede">Hunch is a ten-minute mystery for iPhone. Question the suspects, follow the leads you trust, and name who did it.</p>
+    <div class="sr-only">
+      <p>A new case every morning.</p>
+      <p>Question the suspects and follow the leads you trust.</p>
+      <p>You’re on the clock, so you can’t chase them all.</p>
+      <p>When you’re ready, name who did it.</p>
     </div>
-    <figure>
-      <img src="/art/sleeper.jpg" width="1080" height="720" alt="A sleeping-car corridor at night. One compartment door stands open, a conductor waits at the far end, and a pocket watch lies smashed on the carpet.">
-    </figure>
-  </section>
-
-  <section class="try" aria-labelledby="try-h">
-    <div>
-      <h2 id="try-h">This is how a case opens.</h2>
-      <p class="why">You are the detective. You read what is in front of you, then decide where to go. You never have time to see everything, so what you choose decides what you know when you name the killer.</p>
+    <form class="invite" id="invite" novalidate>
+      <label class="sr-only" for="email">Email</label>
+      <div class="row">
+        <input id="email" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" placeholder="Your email" required aria-describedby="err">
+        <button type="submit" class="cap">Request an invite</button>
+      </div>
+      <p class="err" id="err" aria-live="polite"></p>
+    </form>
+    <div class="ok" id="ok" hidden>
+      <h2 tabindex="-1">You’re on the list.</h2>
+      <p>We’ll email your TestFlight invite to <b id="ok-email"></b>.</p>
     </div>
+    <p class="status">In testing now on iPhone, through TestFlight.</p>
+    <footer class="foot"><a href="/privacy/">Privacy</a><span>© 2026 Hunch</span></footer>
+  </section>
 
-    <div class="page">
-      <p class="where">Alpine Express, 1.20 a.m.</p>
-      <h3>The Night Sleeper</h3>
-      <p>Sharp knuckles rattle your sleeper door. Outside, frost ferns across the corridor glass as the Vienna-to-Zurich express climbs through a dark gorge.</p>
-      <p>Monsieur Moreau, the chief conductor, stands in the dim brass glow, his moustache trembling.</p>
-      <p class="spoken"><b>MOREAU</b>Thank heaven you are aboard, Inspector. Julius Krenn—the art dealer in Compartment 4—has just been found dead. Poison, Dr. Brandt says.</p>
-      <p>Krenn’s watch lies smashed at 12:38. The train crosses the Swiss frontier at Buchs at two o’clock sharp, when local gendarmes will take over and the passengers scatter.</p>
-      <p>Only four people share Car B with you and the dead man. You have time for three leads before the frontier brakes grip. Where do you begin?</p>
-
-      <ul class="leads" id="leads">
-        <li><button type="button" aria-pressed="false"><b>Compartment 4</b><i>Inspect Julius Krenn’s room and body</i></button></li>
-        <li><button type="button" aria-pressed="false"><b>Countess Nadia Orlova</b><i>Compartment 2. Exiled aristocrat</i></button></li>
-        <li><button type="button" aria-pressed="false"><b>Dr. Otto Brandt</b><i>Compartment 5. Viennese physician</i></button></li>
-        <li><button type="button" aria-pressed="false"><b>Evelyn Marsh</b><i>Compartment 3. Krenn’s secretary</i></button></li>
-        <li><button type="button" aria-pressed="false"><b>The Pantry</b><i>Emil Novak, sleeping-car attendant</i></button></li>
-      </ul>
-      <p class="after" id="after" aria-live="polite">Pick one. There are five leads and time for three.</p>
+  <div class="slot" id="slot">
+    <div class="phone" id="phone">
+      <div class="screen" id="screen">
+        <div class="stage" id="stage" aria-hidden="true">
+          <div class="plates" id="plates"></div>
+          <div class="ui" id="ui"></div>
+          <div class="prog" id="prog"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+        </div>
+        <button type="button" class="chip replay" id="replay" aria-label="Replay the intro"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.6 7.2A6.2 6.2 0 1 1 3.8 11.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M3.4 3.6v4.1h4.1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Replay</span></button>
+        <button type="button" class="chip snd" id="snd" aria-label="Sound" aria-pressed="false"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 7.6h2.8L10 4.4v11.2L6.3 12.4H3.5z" fill="currentColor"/><g class="on"><path d="M12.6 7.4a3.6 3.6 0 0 1 0 5.2M14.7 5.4a6.4 6.4 0 0 1 0 9.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></g><g class="off"><path d="M12.8 7.8l4.4 4.4M17.2 7.8l-4.4 4.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></g></svg></button>
+        <button type="button" class="cap ask" id="ask" tabindex="-1" aria-hidden="true">Request an invite</button>
+      </div>
+      <div class="island" aria-hidden="true"></div>
     </div>
-  </section>
-
-  <section class="cases" id="cases" aria-labelledby="cases-h">
-    <h2 id="cases-h">Three cases are in the app today.</h2>
-    <ol>
-      <li>
-        <img src="/art/sleeper.jpg" width="1080" height="720" loading="lazy" alt="">
-        <div>
-          <p class="set">A night train to Zurich</p>
-          <h3>The Night Sleeper</h3>
-          <p>A Viennese art dealer lies dead in Compartment 4, and the Swiss frontier is forty minutes away.</p>
-        </div>
-      </li>
-      <li>
-        <img src="/art/light.jpg" width="1080" height="720" loading="lazy" alt="Cover illustration for Last Light.">
-        <div>
-          <p class="set">A ship in deep space</p>
-          <h3>Last Light</h3>
-          <p>A dead captain in a locked dome, and minutes left before the ship slips into eclipse.</p>
-        </div>
-      </li>
-      <li>
-        <img src="/art/closing.jpg" width="1080" height="720" loading="lazy" alt="Cover illustration for Closing Argument.">
-        <div>
-          <p class="set">A law firm, the night before trial</p>
-          <h3>Closing Argument</h3>
-          <p>A senior partner is dead on the eve of a forty-million-dollar trial, and every alibi on the fourteenth floor has a hole.</p>
-        </div>
-      </li>
-    </ol>
-  </section>
-
-  <section class="facts" aria-labelledby="facts-h">
-    <h2 id="facts-h">What to expect.</h2>
-    <dl>
-      <div><dt>A case takes about ten minutes.</dt><dd>It is built for a coffee break.</dd></div>
-      <div><dt>Every case has more than one ending.</dt><dd>Accuse the wrong person, or the right one without the evidence, and the case ends differently. You can play it again to find the others.</dd></div>
-      <div><dt>You pick how hard it is.</dt><dd>Rookie explains every clue. Detective leaves you to connect the facts. Mastermind gives no hints and fewer tries at the puzzles.</dd></div>
-      <div><dt>You don’t need an account.</dt><dd>The whole game plays without one. Signing in only keeps your record if you change phones.</dd></div>
-    </dl>
-  </section>
+  </div>
 </main>
-
-<footer class="foot">
-  <span class="made">© 2026 Hunch</span>
-  <a href="mailto:hello@playhunch.co">hello@playhunch.co</a>
-  <a href="/privacy/">Privacy policy</a>
-</footer>
-
-<script>
-(function () {
-  var list = document.getElementById('leads'), after = document.getElementById('after');
-  if (!list || !after) return;
-  var buttons = list.querySelectorAll('button');
-  list.addEventListener('click', function (e) {
-    var b = e.target.closest('button');
-    if (!b) return;
-    buttons.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
-    list.classList.add('chosen');
-    after.innerHTML = '<strong>You start with ' + b.querySelector('b').textContent + '.</strong> Two leads left, and the sample ends here. The rest of the case is in the app.';
-  });
-})();
-</script>
+<script src="/home.js"></script>
 </body>
 </html>
